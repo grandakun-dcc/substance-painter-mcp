@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Read-only fixture: open M01_BB_QuteRed01_Scarf.spp in the dedicated worker before evaluating.
+Fixture SHA-256: 5cce77f411620237803a980014463c987a4c111ec6d8b9d9c079224c9b603097
+Painter 12.1.5. Questions are independent and never require saving, editing or baking.
+-->
+<evaluation>
+  <qa_pair>
+    <question>在固定 BB 围脖工程中，先核对纹理集分辨率，再读取同一纹理集的烘焙 OutputSize。现有纹理集宽度是配置的烘焙输出宽度的几倍？只返回整数。</question>
+    <answer>2</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>核对专用网格贴图导出计划、每个目标 mesh map 的实际资源，以及当前烘焙器启用状态。有多少张计划导出的贴图已有资源，但对应烘焙器未启用？只返回整数。</question>
+    <answer>3</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>从 workflow 工程信息定位 BB 围脖纹理集，确认法线 mesh map 已分配，再核对专用导出计划。其法线 TGA 文件名是什么？仅返回不带目录的文件名。</question>
+    <answer>M01_BB_QuteRed01_Scarf_01a_Normal.tga</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>对固定 BB 工程，用原生 layers.list 分页读完包含蒙版和内容效果的递归节点树，再用 workflow.list_layers 读取根图层。原生节点数减去根图层数是多少？只返回整数。</question>
+    <answer>11</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>遍历原生图层与蒙版效果，找到最靠顶部、BaseColor 不透明度小于 0.5，且蒙版包含 Blur 过滤效果的填充图层。用 workflow 图层 UID 对照确认。只返回该图层中文名称。</question>
+    <answer>填充图层 11</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>固定 BB 工程的最顶部填充图层仅激活两种通道。读取它的通道状态，并与当前 stack 的通道格式对照：除颜色通道以外，激活的标量通道的规范枚举名是什么？只返回枚举名。</question>
+    <answer>SpecularRoughness</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>在 workflow 导出 profiles 中找到面向 Unity 通用渲染管线的配置，并分页核对原生 export.presets 中存在其目标预设。只返回目标预设的完整显示名称。</question>
+    <answer>Unity Universal Render Pipeline (Metallic Standard)</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>通过烘焙检查找到 BB 工程中法线烘焙器未启用但已有法线资源的纹理集，再核对导出计划确实会导出它的法线。从 texturesets.list 查出该纹理集唯一的网格对象名称，只返回名称。</question>
+    <answer>polySurface2</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>先核对 BB 专用导出计划中的法线来自已分配的 mesh map，再读取同一 stack 的通道列表。用于法线绘制通道的格式是什么？只返回规范格式名，不要混淆导出文件的位深。</question>
+    <answer>RGB16F</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>对固定 BB 工程，比较原生与 workflow 报告的启用烘焙器集合，并核对专用三张网格贴图导出计划。这两个启用集合与计划导出的 mesh map 用途集合交集有多少项？只返回整数。</question>
+    <answer>0</answer>
+  </qa_pair>
+</evaluation>

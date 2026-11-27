@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "SubstancePainter-MCP": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\MCP\\SubstancePainter-MCP\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "substancepainter_mcp", "serve"],
+      "env": {
+        "PAINTER_MCP_HOME": "C:\\Users\\Admin\\AppData\\Local\\MCP\\SubstancePainter-MCP\\state",
+        "PAINTER_MCP_CONNECTION": "C:\\Users\\Admin\\AppData\\Local\\MCP\\SubstancePainter-MCP\\state\\connection.json",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      }
+    }
+  }
+}
