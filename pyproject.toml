@@ -1,29 +1,30 @@
 [build-system]
-requires = ["setuptools>=77"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
 
 [project]
-name = "substance-painter-mcp"
+name = "SubstancePainter-MCP"
 version = "1.0.0"
-description = "MCP server for controlling Adobe Substance 3D Painter"
+description = "Unified mult-instance MCP and workflow tools for Adobe Substance 3D Painter"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-dependencies = [
-    "mcp>=1.28,<2",
-]
+license-files = ["LICENSE", "licenses/*.txt"]
+dependencies = ["mcp>=1.26,<2"]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=8,<10",
-]
+dev = ["pytest>=8,<10", "jsonschema>=4,<5", "build>=1,<2"]
 
 [project.scripts]
-substance-painter-mcp = "substance_painter_mcp.server:main"
+SubstancePainter-MCP = "substancepainter_mcp.cli:main"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/substancepainter_mcp"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"licenses" = "substancepainter_mcp/licenses"
+"THIRD_PARTY_NOTICES.md" = "substancepainter_mcp/THIRD_PARTY_NOTICES.md"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-ra -p no:cacheprovider"

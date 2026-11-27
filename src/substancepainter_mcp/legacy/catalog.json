@@ -1,0 +1,3330 @@
+[
+  {
+    "name": "workflow.painter_status",
+    "description": "Check the connection and report Painter, Python API, and project status.",
+    "inputSchema": {
+      "properties": {},
+      "title": "painter_statusArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_project_info",
+    "description": "Return the current project path and texture-set names.",
+    "inputSchema": {
+      "properties": {},
+      "title": "get_project_infoArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.plan_project_creation",
+    "description": "Validate a new project, typed import settings, context switch, and backup.",
+    "inputSchema": {
+      "properties": {
+        "mesh_file_path": {
+          "title": "Mesh File Path",
+          "type": "string"
+        },
+        "output_path": {
+          "title": "Output Path",
+          "type": "string"
+        },
+        "mesh_map_file_paths": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mesh Map File Paths"
+        },
+        "template_file_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template File Path"
+        },
+        "settings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Settings"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        },
+        "replace_current": {
+          "default": false,
+          "title": "Replace Current",
+          "type": "boolean"
+        },
+        "backup_current_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Current Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mesh_file_path",
+        "output_path"
+      ],
+      "title": "plan_project_creationArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.create_project",
+    "description": "Back up an optional current project, create a typed project, and verify its file.",
+    "inputSchema": {
+      "properties": {
+        "mesh_file_path": {
+          "title": "Mesh File Path",
+          "type": "string"
+        },
+        "output_path": {
+          "title": "Output Path",
+          "type": "string"
+        },
+        "mesh_map_file_paths": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mesh Map File Paths"
+        },
+        "template_file_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template File Path"
+        },
+        "settings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Settings"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        },
+        "replace_current": {
+          "default": false,
+          "title": "Replace Current",
+          "type": "boolean"
+        },
+        "backup_current_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Current Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mesh_file_path",
+        "output_path"
+      ],
+      "title": "create_projectArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_project_creation_job",
+    "description": "Read terminal state and file verification for an asynchronous project creation.",
+    "inputSchema": {
+      "properties": {
+        "job_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Job Id"
+        }
+      },
+      "title": "get_project_creation_jobArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.save_project",
+    "description": "Overwrite and verify the current saved project after explicit confirmation.",
+    "inputSchema": {
+      "properties": {
+        "mode": {
+          "default": "Incremental",
+          "title": "Mode",
+          "type": "string"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "title": "save_projectArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.open_project",
+    "description": "Open an approved .spp, requiring a backup when the current project is dirty.",
+    "inputSchema": {
+      "properties": {
+        "project_path": {
+          "title": "Project Path",
+          "type": "string"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        },
+        "backup_current_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Current Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "project_path"
+      ],
+      "title": "open_projectArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_capabilities",
+    "description": "Report runtime-supported channels, blend modes, and version-sensitive features.",
+    "inputSchema": {
+      "properties": {},
+      "title": "get_capabilitiesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.audit_project",
+    "description": "Audit texture sets, channels, layer hygiene, and outdated resources.",
+    "inputSchema": {
+      "properties": {},
+      "title": "audit_projectArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.inspect_baking",
+    "description": "Inspect enabled bakers, UV tiles, and mesh-map assignments without starting a bake.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "title": "inspect_bakingArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.inspect_baking_parameters",
+    "description": "Inspect editable common parameters and one baker's typed property metadata.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "baker": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baker"
+        }
+      },
+      "required": [
+        "texture_set"
+      ],
+      "title": "inspect_baking_parametersArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.configure_baking",
+    "description": "Transactionally configure Texture Set, UV tile, common, and per-baker settings.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "enabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Enabled"
+        },
+        "enabled_bakers": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Enabled Bakers"
+        },
+        "enabled_uv_tiles": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Enabled Uv Tiles"
+        },
+        "curvature_method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Curvature Method"
+        },
+        "common_values": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Common Values"
+        },
+        "baker_values": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baker Values"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "texture_set"
+      ],
+      "title": "configure_bakingArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_baking_mesh_inputs",
+    "description": "Assign sandboxed high-poly/cage meshes and related common baker settings.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "high_poly_files": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High Poly Files"
+        },
+        "cage_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cage File"
+        },
+        "low_as_high": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low As High"
+        },
+        "cage_mode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cage Mode"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "texture_set"
+      ],
+      "title": "set_baking_mesh_inputsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_baking_resource_input",
+    "description": "Set or clear a Resource-typed common/per-baker input transactionally.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "resource_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Url"
+        },
+        "baker": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baker"
+        },
+        "clear": {
+          "default": false,
+          "title": "Clear",
+          "type": "boolean"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "texture_set",
+        "parameter"
+      ],
+      "title": "set_baking_resource_inputArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.capture_baking_preset",
+    "description": "Capture a portable JSON baking preset without filesystem-backed properties.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "bakers": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bakers"
+        }
+      },
+      "required": [
+        "texture_set"
+      ],
+      "title": "capture_baking_presetArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.apply_baking_preset",
+    "description": "Apply a captured baking preset transactionally after explicit confirmation.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "preset": {
+          "additionalProperties": true,
+          "title": "Preset",
+          "type": "object"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "texture_set",
+        "preset"
+      ],
+      "title": "apply_baking_presetArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.preflight_bake",
+    "description": "Validate selected Texture Sets, mesh inputs, UV tiles, and expected mesh maps.",
+    "inputSchema": {
+      "properties": {
+        "texture_sets": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Sets"
+        }
+      },
+      "title": "preflight_bakeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.start_batch_bake",
+    "description": "Preflight and start a cancellable multi-Texture-Set bake with result manifests.",
+    "inputSchema": {
+      "properties": {
+        "texture_sets": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Texture Sets",
+          "type": "array"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        },
+        "backup_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "texture_sets"
+      ],
+      "title": "start_batch_bakeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.start_bake",
+    "description": "Start an asynchronous mesh-map bake after explicit confirmation.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "title": "Texture Set",
+          "type": "string"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        },
+        "backup_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "texture_set"
+      ],
+      "title": "start_bakeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_bake_job",
+    "description": "Return progress and terminal status for the latest or selected bake job.",
+    "inputSchema": {
+      "properties": {
+        "job_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Job Id"
+        }
+      },
+      "title": "get_bake_jobArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.cancel_bake",
+    "description": "Request cooperative cancellation of a running bake job.",
+    "inputSchema": {
+      "properties": {
+        "job_id": {
+          "title": "Job Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "job_id"
+      ],
+      "title": "cancel_bakeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.plan_mesh_reload",
+    "description": "Validate a mesh reload and preview texture-set and backup impact.",
+    "inputSchema": {
+      "properties": {
+        "mesh_file_path": {
+          "title": "Mesh File Path",
+          "type": "string"
+        },
+        "backup_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        },
+        "preserve_strokes": {
+          "default": true,
+          "title": "Preserve Strokes",
+          "type": "boolean"
+        },
+        "import_cameras": {
+          "default": true,
+          "title": "Import Cameras",
+          "type": "boolean"
+        },
+        "auto_unwrap_settings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auto Unwrap Settings"
+        },
+        "mesh_settings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mesh Settings"
+        }
+      },
+      "required": [
+        "mesh_file_path"
+      ],
+      "title": "plan_mesh_reloadArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.start_mesh_reload",
+    "description": "Back up and asynchronously reload a mesh after explicit confirmation.",
+    "inputSchema": {
+      "properties": {
+        "mesh_file_path": {
+          "title": "Mesh File Path",
+          "type": "string"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        },
+        "backup_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        },
+        "preserve_strokes": {
+          "default": true,
+          "title": "Preserve Strokes",
+          "type": "boolean"
+        },
+        "import_cameras": {
+          "default": true,
+          "title": "Import Cameras",
+          "type": "boolean"
+        },
+        "auto_unwrap_settings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auto Unwrap Settings"
+        },
+        "mesh_settings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mesh Settings"
+        }
+      },
+      "required": [
+        "mesh_file_path"
+      ],
+      "title": "start_mesh_reloadArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_mesh_reload_job",
+    "description": "Return status and texture-set changes for the latest mesh reload job.",
+    "inputSchema": {
+      "properties": {
+        "job_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Job Id"
+        }
+      },
+      "title": "get_mesh_reload_jobArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.list_layers",
+    "description": "List layers with stable UIDs, types, visibility, and optional group children.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        },
+        "recursive": {
+          "default": true,
+          "title": "Recursive",
+          "type": "boolean"
+        }
+      },
+      "title": "list_layersArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.find_layers",
+    "description": "Search layers by partial name, exact node type, and visibility.",
+    "inputSchema": {
+      "properties": {
+        "query": {
+          "default": "",
+          "title": "Query",
+          "type": "string"
+        },
+        "node_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Node Type"
+        },
+        "visible": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "title": "find_layersArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.snapshot_layer_tree",
+    "description": "Capture a detailed layer/effect snapshot with a deterministic SHA-256 digest.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "title": "snapshot_layer_treeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.diff_layer_snapshots",
+    "description": "Compare two layer snapshots by UID and report added, removed, and changed nodes.",
+    "inputSchema": {
+      "properties": {
+        "before": {
+          "additionalProperties": true,
+          "title": "Before",
+          "type": "object"
+        },
+        "after": {
+          "additionalProperties": true,
+          "title": "After",
+          "type": "object"
+        }
+      },
+      "required": [
+        "before",
+        "after"
+      ],
+      "title": "diff_layer_snapshotsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_geometry_mask",
+    "description": "Inspect a layer's Mesh/UVTile geometry mask and available elements.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "get_geometry_maskArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_geometry_mask",
+    "description": "Set a geometry mask using mesh names or standard UDIM numbers.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "mask_type": {
+          "title": "Mask Type",
+          "type": "string"
+        },
+        "elements": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "title": "Elements",
+          "type": "array"
+        },
+        "inclusion_list": {
+          "default": true,
+          "title": "Inclusion List",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uid",
+        "mask_type",
+        "elements"
+      ],
+      "title": "set_geometry_maskArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.create_fill_layer",
+    "description": "Create a top-level Fill Layer, optionally setting sRGB base color [r,g,b].",
+    "inputSchema": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        },
+        "base_color": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Base Color"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "create_fill_layerArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.create_group",
+    "description": "Create a top-level layer group.",
+    "inputSchema": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "create_groupArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.create_paint_layer",
+    "description": "Create a top-level Paint Layer.",
+    "inputSchema": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "create_paint_layerArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.plan_layer_recipe",
+    "description": "Validate a recipe, resolve channels, and preview backup/mutation scope without editing.",
+    "inputSchema": {
+      "properties": {
+        "recipe": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Recipe",
+          "type": "array"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        },
+        "backup_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "recipe"
+      ],
+      "title": "plan_layer_recipeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.create_layer_recipe",
+    "description": "Create a nested recipe atomically, optionally saving an approved .spp backup first.",
+    "inputSchema": {
+      "properties": {
+        "recipe": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Recipe",
+          "type": "array"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        },
+        "backup_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backup Path"
+        },
+        "backup_mode": {
+          "default": "Incremental",
+          "title": "Backup Mode",
+          "type": "string"
+        },
+        "overwrite_backup": {
+          "default": false,
+          "title": "Overwrite Backup",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "recipe"
+      ],
+      "title": "create_layer_recipeArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.insert_smart_material",
+    "description": "Insert a Smart Material resource at stack top or inside a group.",
+    "inputSchema": {
+      "properties": {
+        "resource_url": {
+          "title": "Resource Url",
+          "type": "string"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        },
+        "parent_uid": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Uid"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        }
+      },
+      "required": [
+        "resource_url"
+      ],
+      "title": "insert_smart_materialArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.apply_smart_mask",
+    "description": "Apply a Smart Mask resource to a layer using transactional mask insertion.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "resource_url": {
+          "title": "Resource Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uid",
+        "resource_url"
+      ],
+      "title": "apply_smart_maskArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_base_color",
+    "description": "Set a Fill Layer's base color using its UID and sRGB [r,g,b] values.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "color": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Color",
+          "type": "array"
+        }
+      },
+      "required": [
+        "uid",
+        "color"
+      ],
+      "title": "set_fill_base_colorArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_fill_projection",
+    "description": "Inspect a Fill layer's projection mode and common UV transformation.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "get_fill_projectionArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_fill_sources",
+    "description": "Inspect a Fill layer's material or per-channel color/resource sources.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "get_fill_sourcesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_procedural_inputs",
+    "description": "Inspect image inputs on Fill, Fill Effect, Generator, or Filter sources.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "get_procedural_inputsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_procedural_input",
+    "description": "Connect a resource to a procedural image input or reset it to its default.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "input_name": {
+          "title": "Input Name",
+          "type": "string"
+        },
+        "resource_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Url"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        },
+        "reset": {
+          "default": false,
+          "title": "Reset",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uid",
+        "input_name"
+      ],
+      "title": "set_procedural_inputArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_fill_parameters",
+    "description": "Inspect procedural parameters, metadata, and presets for a Fill source.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "get_fill_parametersArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_parameters",
+    "description": "Transactionally update typed procedural parameters on a Fill source.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "values": {
+          "additionalProperties": true,
+          "title": "Values",
+          "type": "object"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        }
+      },
+      "required": [
+        "uid",
+        "values"
+      ],
+      "title": "set_fill_parametersArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.apply_fill_preset",
+    "description": "Apply a named preset exposed by a procedural Fill source.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "preset": {
+          "title": "Preset",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        }
+      },
+      "required": [
+        "uid",
+        "preset"
+      ],
+      "title": "apply_fill_presetArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.list_anchor_points",
+    "description": "List Anchor Point effects with owner and Texture Set context.",
+    "inputSchema": {
+      "properties": {
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "title": "list_anchor_pointsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_anchor_source",
+    "description": "Connect an Anchor Point to one Fill channel or the complete material source.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "anchor_uid": {
+          "title": "Anchor Uid",
+          "type": "integer"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        },
+        "material_mode": {
+          "default": false,
+          "title": "Material Mode",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uid",
+        "anchor_uid"
+      ],
+      "title": "set_fill_anchor_sourceArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_resource",
+    "description": "Assign a Painter resource to one Fill channel or to the whole material.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "resource_url": {
+          "title": "Resource Url",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        },
+        "material_mode": {
+          "default": false,
+          "title": "Material Mode",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uid",
+        "resource_url"
+      ],
+      "title": "set_fill_resourceArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_projection",
+    "description": "Set Fill, UV, or Triplanar projection with transactional transform updates.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "mode": {
+          "title": "Mode",
+          "type": "string"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale"
+        },
+        "rotation": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rotation"
+        },
+        "offset": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Offset"
+        }
+      },
+      "required": [
+        "uid",
+        "mode"
+      ],
+      "title": "set_fill_projectionArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_projection_advanced",
+    "description": "Configure UV, triplanar, planar, spherical, or cylindrical projection details.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "mode": {
+          "title": "Mode",
+          "type": "string"
+        },
+        "settings": {
+          "additionalProperties": true,
+          "title": "Settings",
+          "type": "object"
+        }
+      },
+      "required": [
+        "uid",
+        "mode",
+        "settings"
+      ],
+      "title": "set_fill_projection_advancedArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_fill_channels",
+    "description": "Set and enable multiple uniform Fill channels, such as Roughness or Metallic.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "values": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "object"
+        }
+      },
+      "required": [
+        "uid",
+        "values"
+      ],
+      "title": "set_fill_channelsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_active_channels",
+    "description": "Replace a Fill or Paint layer's active channel set by UID.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "channels": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Channels",
+          "type": "array"
+        }
+      },
+      "required": [
+        "uid",
+        "channels"
+      ],
+      "title": "set_active_channelsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_layer_mask",
+    "description": "Add/update or remove a layer mask; backgrounds are reported by get_capabilities.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "background": {
+          "default": "Black",
+          "title": "Background",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uid",
+        "enabled"
+      ],
+      "title": "set_layer_maskArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.insert_mask_effect",
+    "description": "Insert Fill, Paint, Generator, Filter, Levels, Anchor, or Smart Mask content.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "effect_type": {
+          "title": "Effect Type",
+          "type": "string"
+        },
+        "resource_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Url"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        }
+      },
+      "required": [
+        "uid",
+        "effect_type"
+      ],
+      "title": "insert_mask_effectArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.rename_layer",
+    "description": "Rename a layer or group by UID.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uid",
+        "name"
+      ],
+      "title": "rename_layerArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.set_layer_properties",
+    "description": "Set visibility, opacity, or blend mode; channel defaults to BaseColor.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "visible": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible"
+        },
+        "opacity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Opacity"
+        },
+        "blending_mode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Blending Mode"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Channel"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "set_layer_propertiesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.select_layers",
+    "description": "Select one or more layers in Painter by UID.",
+    "inputSchema": {
+      "properties": {
+        "uids": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Uids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "uids"
+      ],
+      "title": "select_layersArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.list_export_presets",
+    "description": "List built-in and shelf export presets without exporting files.",
+    "inputSchema": {
+      "properties": {},
+      "title": "list_export_presetsArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.inspect_export_preset",
+    "description": "Resolve an export preset and preview its map names without writing files.",
+    "inputSchema": {
+      "properties": {
+        "preset": {
+          "title": "Preset",
+          "type": "string"
+        },
+        "texture_set": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Set"
+        }
+      },
+      "required": [
+        "preset"
+      ],
+      "title": "inspect_export_presetArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.list_export_profiles",
+    "description": "List curated engine export profiles and whether their Painter presets are available.",
+    "inputSchema": {
+      "properties": {},
+      "title": "list_export_profilesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.plan_texture_export",
+    "description": "Validate an export and list exact output files without writing them.",
+    "inputSchema": {
+      "properties": {
+        "output_directory": {
+          "title": "Output Directory",
+          "type": "string"
+        },
+        "preset": {
+          "title": "Preset",
+          "type": "string"
+        },
+        "texture_sets": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Sets"
+        },
+        "size_log2": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Log2"
+        },
+        "file_format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "File Format"
+        },
+        "bit_depth": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bit Depth"
+        }
+      },
+      "required": [
+        "output_directory",
+        "preset"
+      ],
+      "title": "plan_texture_exportArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.export_textures",
+    "description": "Export textures inside SP_MCP_EXPORT_ROOTS and verify every output file.",
+    "inputSchema": {
+      "properties": {
+        "output_directory": {
+          "title": "Output Directory",
+          "type": "string"
+        },
+        "preset": {
+          "title": "Preset",
+          "type": "string"
+        },
+        "texture_sets": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Sets"
+        },
+        "size_log2": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Log2"
+        },
+        "file_format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "File Format"
+        },
+        "bit_depth": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bit Depth"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "output_directory",
+        "preset"
+      ],
+      "title": "export_texturesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.plan_profile_export",
+    "description": "Preview an engine-profile texture export without writing files.",
+    "inputSchema": {
+      "properties": {
+        "output_directory": {
+          "title": "Output Directory",
+          "type": "string"
+        },
+        "profile": {
+          "title": "Profile",
+          "type": "string"
+        },
+        "texture_sets": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Sets"
+        },
+        "size_log2": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Log2"
+        }
+      },
+      "required": [
+        "output_directory",
+        "profile"
+      ],
+      "title": "plan_profile_exportArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.export_with_profile",
+    "description": "Run a curated export profile inside SP_MCP_EXPORT_ROOTS and verify outputs.",
+    "inputSchema": {
+      "properties": {
+        "output_directory": {
+          "title": "Output Directory",
+          "type": "string"
+        },
+        "profile": {
+          "title": "Profile",
+          "type": "string"
+        },
+        "texture_sets": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Texture Sets"
+        },
+        "size_log2": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Log2"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "output_directory",
+        "profile"
+      ],
+      "title": "export_with_profileArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.import_project_resource",
+    "description": "Import and verify a sandboxed resource inside the open Painter project.",
+    "inputSchema": {
+      "properties": {
+        "file_path": {
+          "title": "File Path",
+          "type": "string"
+        },
+        "usage": {
+          "title": "Usage",
+          "type": "string"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Group"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "file_path",
+        "usage"
+      ],
+      "title": "import_project_resourceArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.list_shelves",
+    "description": "List Painter shelves with paths, write capability, and crawling state.",
+    "inputSchema": {
+      "properties": {},
+      "title": "list_shelvesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.import_shelf_resource",
+    "description": "Import and verify a safe resource in an editable shelf or the user shelf.",
+    "inputSchema": {
+      "properties": {
+        "file_path": {
+          "title": "File Path",
+          "type": "string"
+        },
+        "usage": {
+          "title": "Usage",
+          "type": "string"
+        },
+        "shelf_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shelf Name"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Group"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "file_path",
+        "usage"
+      ],
+      "title": "import_shelf_resourceArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.start_shelf_refresh",
+    "description": "Start event-observed discovery for one Painter shelf after confirmation.",
+    "inputSchema": {
+      "properties": {
+        "shelf_name": {
+          "title": "Shelf Name",
+          "type": "string"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "shelf_name"
+      ],
+      "title": "start_shelf_refreshArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.get_shelf_refresh_job",
+    "description": "Read persistent state for the latest or selected shelf refresh job.",
+    "inputSchema": {
+      "properties": {
+        "job_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Job Id"
+        }
+      },
+      "title": "get_shelf_refresh_jobArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.import_session_resource",
+    "description": "Import and verify a sandboxed resource for the current Painter session.",
+    "inputSchema": {
+      "properties": {
+        "file_path": {
+          "title": "File Path",
+          "type": "string"
+        },
+        "usage": {
+          "title": "Usage",
+          "type": "string"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Group"
+        },
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "file_path",
+        "usage"
+      ],
+      "title": "import_session_resourceArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.list_project_resources",
+    "description": "List resources referenced by the open project.",
+    "inputSchema": {
+      "properties": {},
+      "title": "list_project_resourcesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.search_resources",
+    "description": "Search Painter resources and return identifiers, type, category, and usages.",
+    "inputSchema": {
+      "properties": {
+        "query": {
+          "title": "Query",
+          "type": "string"
+        },
+        "limit": {
+          "default": 50,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "resource_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Type"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Usage"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "title": "search_resourcesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.find_outdated_resources",
+    "description": "Plan project-resource replacements without modifying the project.",
+    "inputSchema": {
+      "properties": {},
+      "title": "find_outdated_resourcesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": false,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.replace_outdated_resources",
+    "description": "Atomically replace all outdated resources after explicit confirm=true.",
+    "inputSchema": {
+      "properties": {
+        "confirm": {
+          "default": false,
+          "title": "Confirm",
+          "type": "boolean"
+        }
+      },
+      "title": "replace_outdated_resourcesArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.save_project_copy",
+    "description": "Save a verified .spp copy inside SP_MCP_PROJECT_ROOTS without relocating the project.",
+    "inputSchema": {
+      "properties": {
+        "output_path": {
+          "title": "Output Path",
+          "type": "string"
+        },
+        "mode": {
+          "default": "Incremental",
+          "title": "Mode",
+          "type": "string"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "output_path"
+      ],
+      "title": "save_project_copyArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.export_smart_material",
+    "description": "Export a group as a verified Smart Material inside SP_MCP_EXPORT_ROOTS.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "output_directory": {
+          "title": "Output Directory",
+          "type": "string"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uid",
+        "name",
+        "output_directory"
+      ],
+      "title": "export_smart_materialArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.export_smart_mask",
+    "description": "Export a layer mask as a verified Smart Mask inside SP_MCP_EXPORT_ROOTS.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "output_directory": {
+          "title": "Output Directory",
+          "type": "string"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uid",
+        "name",
+        "output_directory"
+      ],
+      "title": "export_smart_maskArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.delete_layer",
+    "description": "Delete a layer or group by UID. This modifies the open project.",
+    "inputSchema": {
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "uid"
+      ],
+      "title": "delete_layerArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  },
+  {
+    "name": "workflow.execute_python",
+    "description": "Execute raw Painter Python only when SP_MCP_ALLOW_EXECUTE_PYTHON=1.",
+    "inputSchema": {
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "title": "execute_pythonArguments",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "api": [],
+    "mutates": true,
+    "undo": "none",
+    "origin": "elliezu/SubstancePainterMCP",
+    "runtime_check": "Version-sensitive API checks occur at invocation."
+  }
+]

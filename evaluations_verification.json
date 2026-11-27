@@ -1,0 +1,89 @@
+{
+  "fixture_sha256": "5cce77f411620237803a980014463c987a4c111ec6d8b9d9c079224c9b603097",
+  "questions": 10,
+  "passed": 10,
+  "operation_calls": 49,
+  "verification": "Expected answers solved with real read-only MCP operations; no external model evaluation.",
+  "results": [
+    {
+      "question": 1,
+      "answer": "2",
+      "expected": "2",
+      "passed": true,
+      "operation_calls": 2,
+      "elapsed_seconds": 0.078
+    },
+    {
+      "question": 2,
+      "answer": "3",
+      "expected": "3",
+      "passed": true,
+      "operation_calls": 6,
+      "elapsed_seconds": 0.281
+    },
+    {
+      "question": 3,
+      "answer": "M01_BB_QuteRed01_Scarf_01a_Normal.tga",
+      "expected": "M01_BB_QuteRed01_Scarf_01a_Normal.tga",
+      "passed": true,
+      "operation_calls": 3,
+      "elapsed_seconds": 0.141
+    },
+    {
+      "question": 4,
+      "answer": "11",
+      "expected": "11",
+      "passed": true,
+      "operation_calls": 6,
+      "elapsed_seconds": 0.281
+    },
+    {
+      "question": 5,
+      "answer": "填充图层 11",
+      "expected": "填充图层 11",
+      "passed": true,
+      "operation_calls": 6,
+      "elapsed_seconds": 0.281
+    },
+    {
+      "question": 6,
+      "answer": "SpecularRoughness",
+      "expected": "SpecularRoughness",
+      "passed": true,
+      "operation_calls": 3,
+      "elapsed_seconds": 0.141
+    },
+    {
+      "question": 7,
+      "answer": "Unity Universal Render Pipeline (Metallic Standard)",
+      "expected": "Unity Universal Render Pipeline (Metallic Standard)",
+      "passed": true,
+      "operation_calls": 12,
+      "elapsed_seconds": 0.64
+    },
+    {
+      "question": 8,
+      "answer": "polySurface2",
+      "expected": "polySurface2",
+      "passed": true,
+      "operation_calls": 3,
+      "elapsed_seconds": 0.141
+    },
+    {
+      "question": 9,
+      "answer": "RGB16F",
+      "expected": "RGB16F",
+      "passed": true,
+      "operation_calls": 4,
+      "elapsed_seconds": 0.203
+    },
+    {
+      "question": 10,
+      "answer": "0",
+      "expected": "0",
+      "passed": true,
+      "operation_calls": 4,
+      "elapsed_seconds": 0.266
+    }
+  ]
+}
